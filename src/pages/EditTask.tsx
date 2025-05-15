@@ -9,11 +9,10 @@ const EditTask: React.FC = () => {
   const navigate = useNavigate();
   const { tasks, updateTask } = useTaskContext();
   const taskToEdit = tasks.find((t) => t.id === Number(id));
-
-
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
+  const [validated, setValidated] = useState(false)
 
   useEffect(() => {
     if (taskToEdit) {
@@ -26,7 +25,16 @@ const EditTask: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // ❌ Right now this is still using addTask
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+        setValidated(true);
+        return;
+    }
+
+    setValidated(true);
+
     const updatedTask: Task = {
       id: Number(id),
       title,
@@ -35,7 +43,6 @@ const EditTask: React.FC = () => {
       completed: taskToEdit?.completed || false
     };
 
-    // 🧠 We'll replace this with updateTask()
     updateTask(updatedTask);
     navigate('/');
   };
@@ -45,7 +52,7 @@ const EditTask: React.FC = () => {
   return (
     <Container className="py-4">
       <h2>Edit Task</h2>
-      <Form onSubmit={handleSubmit}>
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Form.Group className='mb-3'>
             <Form.Label>Title</Form.Label>
             <Form.Control
@@ -53,7 +60,11 @@ const EditTask: React.FC = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder='Enter task title'
+                required
             />
+            <Form.Control.Feedback type="invalid">
+                Task must have a title!
+            </Form.Control.Feedback>
             </Form.Group>
         <Form.Group className='mb-3'>
             <Form.Label>Description</Form.Label>
@@ -62,7 +73,11 @@ const EditTask: React.FC = () => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder = 'Enter task description'
+                required
             />
+            <Form.Control.Feedback type="invalid">
+                Task must have a description too!
+            </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3">
             <Form.Label>Due Date</Form.Label>
@@ -70,7 +85,11 @@ const EditTask: React.FC = () => {
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
+                required
             />
+            <Form.Control.Feedback type="invalid">
+                Task must have a date too!
+            </Form.Control.Feedback>
         </Form.Group>
         <Button variant="primary" type="submit">
             Update Task
