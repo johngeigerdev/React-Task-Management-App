@@ -7,7 +7,7 @@ interface RequireAuthProps {
 }
 
 const RequireAuth: React.FC<RequireAuthProps> = ({ children }) => {
-    const { isAuthenticated, isLoading } = useAuth0;
+    const { isAuthenticated, isLoading } = useAuth0();
 
     if (isLoading) return <p>Loading...</p>
 

@@ -1,0 +1,7 @@
+
+.task-card-body {
+    background-color: rgb(234, 224, 205);
+}
+.task-card-body .form-control {
+    background-color: white;
+}

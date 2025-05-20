@@ -50,7 +50,7 @@ const EditTask: React.FC = () => {
   if (!taskToEdit) return <p>Task not found</p>;
 
   return (
-    <Container className="py-4">
+    <Container className="bg-primary py-4">
       <h2>Edit Task</h2>
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Form.Group className='mb-3'>

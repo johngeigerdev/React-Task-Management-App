@@ -9,16 +9,13 @@ import { Button } from 'react-bootstrap';
 import { useAuth0 } from '@auth0/auth0-react';
 
 
-
-
 const Dashboard: React.FC = () => {
     const { tasks } = useTaskContext();
     const { loginWithRedirect, logout, user, isAuthenticated, isLoading } = useAuth0()
 
 
-
     return (
-        <Container className='bg-secondary'>
+        <Container className='bg-primary d-flex flex-column justify-content-center'>
             <Row>
                 <Col>
                     <h1>Task Dashboard</h1>
@@ -26,7 +23,7 @@ const Dashboard: React.FC = () => {
                         <p className="text-light">Loading user...</p>
                     ) : isAuthenticated ? (
                         <>
-                          <p className="text-light">Welcome, {user?.name}!</p>
+                          <h2 className="text-warning fw-bold text-center">Welcome, {user?.name}!</h2>
                           <Button
                             variant="outline-light"
                             onClick={() =>

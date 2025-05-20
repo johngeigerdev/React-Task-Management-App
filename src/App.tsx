@@ -6,6 +6,8 @@ import EditTask from './pages/EditTask';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { TaskProvider } from './context/TaskContext';
 import RequireAuth from './components/RequireAuth';
+import './index.css';
+
 
 const App: React.FC = () => {
 
